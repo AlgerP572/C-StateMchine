@@ -26,7 +26,7 @@ protected:
 
 public:	
 	
-	int virtual Trigger(int trigger)
+	int Trigger(int trigger) override 
 	{
 		switch(trigger)
 		{
@@ -95,19 +95,19 @@ public:
 		_childStates.emplace(enumValue, &instance);
 	}
 
-	void virtual EntryAction()
+	void EntryAction() override
 	{
 		Trigger(RESERVED_TRIGGER_DEFAULT_ENTRY);
 	}
 
-	void virtual ExitAction()
+	void ExitAction() override
 	{
 		Trigger(RESERVED_TRIGGER_DEFAULT_EXIT);
 	}
 
 	int GetCurrentState() { return _currentState; }
 
-	unsigned int virtual Trigger(int trigger)
+	unsigned int Trigger(int trigger) override
 	{
 		switch (trigger)
 		{
