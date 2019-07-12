@@ -2,30 +2,48 @@
 
 #include <map>
 
+#define NO_STATE 0
 #define RESERVED_TRIGGER_DEFAULT_ENTRY -1
 #define RESERVED_TRIGGER_DEFAULT_EXIT -2
 
-template <class T>
 class State
+{
+public:
+	virtual void EntryAction() = 0;
+	virtual void ExitAction() = 0;
+	unsigned int virtual Trigger(int trigger) = 0;
+};
+
+template <class T>
+class StateTemplate : public State
 {
 
 protected:	
 	typedef unsigned int (T::* Guard)(unsigned int);
+	T* _derivedState;
 	std::map<unsigned int, Guard> _triggers;
 
-public:
-	virtual void EntryAction() = 0;
-	virtual void ExitAction() = 0;
+public:	
+	
 	unsigned int virtual Trigger(int trigger)
 	{
-		if (_triggers.find(toState) == _triggers.end())
+		switch(trigger)
 		{
-			return 0; // Not supported transition.
+		case RESERVED_TRIGGER_DEFAULT_EXIT:
+			return RESERVED_TRIGGER_DEFAULT_EXIT;
+		default:
+		{
+			if (_triggers.find(trigger) == _triggers.end())
+			{
+				return NO_STATE; // Not supported transition.
+			}
+			else
+			{
+				Guard guard = _triggers[trigger];
+				return ((T*)this->*guard)(trigger);
+			}
 		}
-		else
-		{
-			Guard guard = _triggers[toState];
-			return (this->*guard)(toState);
+		break;
 		}
 	}
 	void AddTriggerGuard(unsigned int trigger, Guard guard)
@@ -34,12 +52,13 @@ public:
 	}
 };
 
-template <class T>
-class OrState : public State<T>
+template <class T, int U>
+class OrState : public StateTemplate<T>
 {
 
 private:
-	std::map<unsigned int, State&> _childStates;
+	std::map<unsigned int, State*> _childStates;
+	int _defaultEntryState = U;
 
 	void ChangeState(unsigned int newState)
 	{
@@ -48,9 +67,9 @@ private:
 			_currentState->ExitAction();
 		}
 
-		if (_childStates.find(newState) != _childStates.end)
+		if (_childStates.find(newState) != _childStates.end())
 		{
-			_currentState = &(_childStates[newState]);
+			_currentState = _childStates[newState];
 			_currentState->EntryAction();
 		}
 	}
@@ -61,15 +80,38 @@ protected:
 public:
 	void AddState(unsigned int enumValue, State& instance)
 	{
-		_childStates.emplace(enumValue, instance);
+		_childStates.emplace(enumValue, &instance);
 	}
+
 	unsigned int virtual Trigger(int trigger)
 	{
-		if (_currentState != NULL)
+		switch (trigger)
 		{
-			unsigned int newState = _currentState->Trigger(trigger);
-			ChangeState(newState);
+		case RESERVED_TRIGGER_DEFAULT_ENTRY:
+		{
+			if (_currentState != NULL)
+			{
+				return RESERVED_TRIGGER_DEFAULT_ENTRY;
+			}
+			ChangeState(_defaultEntryState);
 		}
-		return State::Trigger(trigger);
+		break;
+		case RESERVED_TRIGGER_DEFAULT_EXIT:
+		{
+			_currentState = NULL;
+		}
+		break;
+		default:
+		{
+			if (_currentState != NULL)
+			{
+				unsigned int newState = _currentState->Trigger(trigger);
+				ChangeState(newState);
+			}
+		}
+		break;
+		}
+		
+		return StateTemplate<T>::Trigger(trigger);
 	}
 };

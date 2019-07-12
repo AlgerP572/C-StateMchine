@@ -3,7 +3,7 @@
 enum STATES {IDLE = 1};
 enum TRIGGERS { IDLETRIGGER = 1 };
 
-class Idle : public State<Idle>
+class Idle : public StateTemplate<Idle>
 {
 private:
 	unsigned int TransitionFromIdle(unsigned int);
@@ -21,10 +21,10 @@ Idle::Idle()
 
 unsigned int Idle::TransitionFromIdle(unsigned int)
 {
-
+	return NO_STATE;
 }
 
-class SimpleStateMachine : public OrState<SimpleStateMachine>
+class SimpleStateMachine : public OrState<SimpleStateMachine, IDLE>
 {
 public:
 	SimpleStateMachine();
@@ -53,6 +53,9 @@ int main(void)
 {	
 	SimpleStateMachine sm;
 
-	sm.Trigger();
+	// Init done move to intial state.
+	sm.Trigger(RESERVED_TRIGGER_DEFAULT_ENTRY);
+
+	sm.Trigger(IDLETRIGGER);
 	return 0;
 }
