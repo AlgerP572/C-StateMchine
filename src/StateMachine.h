@@ -12,130 +12,139 @@ class State
 {
 public:
 	virtual void EntryAction() = 0;
-	virtual void ExitAction() = 0;
-	int virtual Trigger(int trigger) = 0;
+	virtual void ExitAction() = 0;	
 };
 
-template <class T>
+template <class T, typename EnumTrigger, int countTriggers, typename EnumState>
 class StateTemplate : public State
 {
 
 protected:	
-	typedef unsigned int (T::* Guard)(unsigned int);	
-	std::map<unsigned int, Guard> _triggers;
+	typedef EnumState (T::* Guard)(EnumTrigger);
+	Guard _triggers[countTriggers];
 
-public:	
+public:
+	StateTemplate()
+	{
+		for (int i = 0; i < countTriggers; i++)
+		{
+			_triggers[i] = NULL;
+		}
+	}
 	
-	int Trigger(int trigger) override 
+	EnumState virtual Trigger(EnumTrigger trigger)
 	{
 		switch(trigger)
 		{
-		case RESERVED_TRIGGER_DEFAULT_EXIT:
-			return RESERVED_NO_STATE;
+		case EnumTrigger::DEFAULTENTRY:
+		case EnumTrigger::DEFAULTEXIT:
+			return EnumState::NOSTATE;
 		default:
 		{
-			if (_triggers.find(trigger) == _triggers.end())
-			{
-				return RESERVED_NO_STATE_CHANGE; // Not supported transition.
-			}
-			else
-			{
-				Guard guard = _triggers[trigger];
-				return ((T*)this->*guard)(trigger);
-			}
+			Guard guard = _triggers[(int) trigger];
+
+			if (guard == NULL)
+				return EnumState::NOSTATE;
+
+			return ((T*)this->*guard)(trigger);
 		}
 		break;
 		}
 	}
 
-	void AddTriggerGuard(unsigned int trigger, Guard guard)
+	void AddTriggerGuard(EnumTrigger trigger, Guard guard)
 	{
-		_triggers.emplace(trigger, guard);
+		_triggers[(int) trigger] = guard;
 	}
 };
 
-template <class T, int U>
-class OrState : public StateTemplate<T>
+template <class T, typename EnumTrigger, int numTriggers, typename EnumState, int numStates, EnumState defaultEntryState>
+class OrState : public StateTemplate<T, EnumTrigger, numTriggers, EnumState>
 {
 
 private:
-	std::map<unsigned int, State*> _childStates;
-	int _defaultEntryState = U;
-	int _currentState;
+	State* _childStates[numStates];
+	EnumState _defaultEntryState = defaultEntryState;
+	EnumState _currentState = EnumState::NOSTATE;
 
-	void ChangeState(unsigned int newState)
+	void ChangeState(EnumState newState)
 	{
-		if (newState == RESERVED_NO_STATE_CHANGE)
+		if (newState == EnumState::NOSTATECHANGE)
 		{
 			return;
 		}
 
-		if (_currentState != RESERVED_NO_STATE)
+		if (_currentState != EnumState::NOSTATE)
 		{
-			_childStates[CurrentState]->ExitAction();
+			_childStates[(int) _currentState]->ExitAction();
 		}
 
-		if (newState == RESERVED_NO_STATE)
+		if (newState == EnumState::NOSTATE)
 		{
-			_currentState = RESERVED_NO_STATE;
+			_currentState = EnumState::NOSTATE;
 		}
-		else if(_childStates.find(newState) != _childStates.end())
+		else
 		{
 			_currentState = newState;			
-			_childStates[_currentState]->EntryAction();
+			_childStates[(int) _currentState]->EntryAction();
 		}
 	}
 
 public:
-	
-	void AddState(unsigned int enumValue, State& instance)
+	OrState()
 	{
-		// Negative values are reserved for internal private
-		// use so insigned int is by design here...
-		_childStates.emplace(enumValue, &instance);
+		for (int i = 0; i < numStates; i++)
+		{
+			_childStates[i] = NULL;
+		}
+	}
+	
+	void AddState(EnumState enumValue, State& instance)
+	{		
+		_childStates[(int) enumValue] = &instance;
 	}
 
 	void EntryAction() override
 	{
-		Trigger(RESERVED_TRIGGER_DEFAULT_ENTRY);
+		Trigger(EnumTrigger::DEFAULTENTRY);
 	}
 
 	void ExitAction() override
 	{
-		Trigger(RESERVED_TRIGGER_DEFAULT_EXIT);
+		Trigger(EnumTrigger::DEFAULTEXIT);
 	}
 
-	int GetCurrentState() { return _currentState; }
+	EnumState GetCurrentState() { return _currentState; }
 
-	unsigned int Trigger(int trigger) override
+	EnumState Trigger(EnumTrigger trigger) override
 	{
 		switch (trigger)
 		{
-		case RESERVED_TRIGGER_DEFAULT_ENTRY:
+		case EnumTrigger::DEFAULTENTRY:
 		{
-			if (_currentState != RESERVED_NO_STATE)
+			if (_currentState != EnumState::NOSTATE)
 			{
-				return RESERVED_NO_STATE_CHANGE;
+				return EnumState::NOSTATECHANGE;
 			}
 			ChangeState(_defaultEntryState);
 		}
 		break;
-		case RESERVED_TRIGGER_DEFAULT_EXIT:
+		case EnumTrigger::DEFAULTEXIT:
 		{			
-			ChangeState(RESERVED_NO_STATE);
+			ChangeState(EnumState::NOSTATE);
 		}
 		break;
 		default:
 		{
-			if (_currentState != RESERVED_NO_STATE)
+			if (_currentState != EnumState::NOSTATE)
 			{
-				unsigned int newState = _childStates[_currentState]->Trigger(trigger);
+				EnumState newState = ((StateTemplate<T, EnumTrigger, numTriggers, EnumState>*)_childStates[(int) _currentState])->Trigger(trigger);
 				ChangeState(newState);
 			}
 		}
 		break;
 		}
-		
-		return StateTemplate<T>::Trigger(trigger);
+
+		return StateTemplate<T, EnumTrigger, numTriggers, EnumState>::Trigger(trigger);
 	}
 };

@@ -1,13 +1,33 @@
 #include "StateMachine.h"
 
-enum STATES {IDLE = 1, FINAL = 2};
-enum TRIGGERS { IDLETRIGGER = 1, FINALTRIGGER = 2 };
+enum class DEFAULT_STATES { DEFAULT_ENTRY = -1, NO_STATE = -2};
 
-class Idle : public StateTemplate<Idle>
+enum class STATES
+{
+	NOSTATE = RESERVED_NO_STATE,
+	NOSTATECHANGE = RESERVED_NO_STATE_CHANGE,
+	IDLE = 0,
+	FINAL,
+	Count
+};
+
+enum class TRIGGERS 
+{
+	DEFAULTENTRY = RESERVED_TRIGGER_DEFAULT_ENTRY,
+	DEFAULTEXIT = RESERVED_TRIGGER_DEFAULT_EXIT,
+	IDLETRIGGER = 0,
+	FINALTRIGGER,
+	Count
+};
+
+class Idle : public StateTemplate<Idle,
+	TRIGGERS,
+	(int) TRIGGERS::Count,
+	STATES>
 {
 private:
-	unsigned int TransitionToIdle(unsigned int);
-	unsigned int TransitionToFinal(unsigned int);
+	STATES IdleTriggerGuard(TRIGGERS trigger);
+	STATES FinalTriggerGuard(TRIGGERS trigger);
 
 public:
 	Idle();
@@ -17,24 +37,27 @@ public:
 
 Idle::Idle()
 {
-	AddTriggerGuard(IDLETRIGGER, &Idle::TransitionToIdle);
-	AddTriggerGuard(FINALTRIGGER, &Idle::TransitionToFinal);
+	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Idle::IdleTriggerGuard);
+	AddTriggerGuard(TRIGGERS::FINALTRIGGER, &Idle::FinalTriggerGuard);
 }
 
-unsigned int Idle::TransitionToIdle(unsigned int)
+STATES Idle::IdleTriggerGuard(TRIGGERS trigger)
 {
-	return IDLE;
+	return STATES::IDLE;
 }
 
-unsigned int Idle::TransitionToFinal(unsigned int)
+STATES Idle::FinalTriggerGuard(TRIGGERS trigger)
 {
-	return FINAL;
+	return STATES::FINAL;
 }
 
-class Final : public StateTemplate<Final>
+class Final : public StateTemplate<Final,
+	TRIGGERS,
+	(int) TRIGGERS::Count,
+	STATES>
 {
 private:
-	unsigned int TransitionToIdle(unsigned int);
+	STATES IdleTriggerGuard(TRIGGERS trigger);
 
 public:
 	Final();
@@ -44,15 +67,20 @@ public:
 
 Final::Final()
 {
-	AddTriggerGuard(IDLETRIGGER, &Final::TransitionToIdle);
+	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Final::IdleTriggerGuard);
 }
 
-unsigned int Final::TransitionToIdle(unsigned int)
+STATES Final::IdleTriggerGuard(TRIGGERS trigger)
 {
-	return IDLE;
+	return STATES::IDLE;
 }
 
-class SimpleStateMachine : public OrState<SimpleStateMachine, IDLE>
+class SimpleStateMachine : public OrState<SimpleStateMachine,
+	TRIGGERS,
+	(int)TRIGGERS::Count,
+	STATES,
+	(int) STATES::Count,
+	STATES::IDLE>
 {
 public:
 	SimpleStateMachine();
@@ -66,8 +94,8 @@ SimpleStateMachine::SimpleStateMachine()
 	Idle* idle = new Idle();
 	Final* final = new Final();
 
-	AddState(IDLE, *idle);
-	AddState(FINAL, *final);
+	AddState(STATES::IDLE, *idle);
+	AddState(STATES::FINAL, *final);
 }
 
 void SimpleStateMachine::EntryAction()
@@ -82,12 +110,19 @@ int main(void)
 {	
 	SimpleStateMachine sm;
 
+	STATES stateNow = sm.GetCurrentState();
+
 	// Init done move to intial state.
-	sm.Trigger(RESERVED_TRIGGER_DEFAULT_ENTRY);
+	sm.Trigger(TRIGGERS::DEFAULTENTRY);
+	stateNow = sm.GetCurrentState();
 
-	sm.Trigger(IDLETRIGGER);
-	sm.Trigger(IDLETRIGGER);
+	sm.Trigger(TRIGGERS::IDLETRIGGER);
+	stateNow = sm.GetCurrentState();
+	
+	sm.Trigger(TRIGGERS::FINALTRIGGER);
+	stateNow = sm.GetCurrentState();
 
-	sm.Trigger(FINALTRIGGER);
+	sm.Trigger(TRIGGERS::IDLETRIGGER);
+	stateNow = sm.GetCurrentState();
 	return 0;
 }
