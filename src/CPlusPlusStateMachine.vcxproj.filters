@@ -11,6 +11,15 @@
     <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp">
       <Filter>SimpleStateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\Default.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\KeyboardStateMachine.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\CapsLocked.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -21,6 +30,9 @@
     </Filter>
     <Filter Include="SimpleStateMachine">
       <UniqueIdentifier>{7423edd0-26b7-49d3-9b0c-601122facb69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KeyboardStateMachine">
+      <UniqueIdentifier>{91344073-0088-4886-a52e-75280dc50ed1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +50,18 @@
     </ClInclude>
     <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h">
       <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\Default.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\KeyBoardStateMachine.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\CapsLocked.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\KeyboardStatesTriggers.h">
+      <Filter>KeyboardStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
