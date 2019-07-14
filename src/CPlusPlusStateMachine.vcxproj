@@ -65,12 +65,19 @@
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KeyboardStateMachine\CapsLocked.cpp" />
+    <ClCompile Include="KeyboardStateMachine\Default.cpp" />
+    <ClCompile Include="KeyboardStateMachine\KeyboardStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SimpleStateMachine\Final.cpp" />
     <ClCompile Include="SimpleStateMachine\Idle.cpp" />
     <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyboardStateMachine\CapsLocked.h" />
+    <ClInclude Include="KeyboardStateMachine\Default.h" />
+    <ClInclude Include="KeyboardStateMachine\KeyBoardStateMachine.h" />
+    <ClInclude Include="KeyboardStateMachine\KeyboardStatesTriggers.h" />
     <ClInclude Include="SimpleStateMachine\Final.h" />
     <ClInclude Include="SimpleStateMachine\Idle.h" />
     <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h" />

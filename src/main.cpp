@@ -21,9 +21,20 @@
  ***********************************************************************
 */
 #include "./SimpleStateMachine/SimpleStateMachine.h"
+#include "./KeyboardStateMachine/KeyBoardStateMachine.h"
+
+void TestSimpleStateMachine();
+void TestKeyboardStateMachine();
 
 int main(void)
 {	
+	TestSimpleStateMachine();
+	TestKeyboardStateMachine();
+	return 0;
+}
+
+void TestSimpleStateMachine()
+{
 	SimpleStateMachine sm;
 
 	STATES stateNow = sm.GetCurrentState();
@@ -35,7 +46,7 @@ int main(void)
 	// Self-trigger IDLE to IDLE
 	sm.Trigger(TRIGGERS::IDLETRIGGER);
 	stateNow = sm.GetCurrentState();
-	
+
 	sm.Trigger(TRIGGERS::FINALTRIGGER);
 	stateNow = sm.GetCurrentState();
 
@@ -44,5 +55,36 @@ int main(void)
 
 	sm.Trigger(TRIGGERS::DEFAULTEXIT);
 	stateNow = sm.GetCurrentState();
-	return 0;
+}
+
+void TestKeyboardStateMachine()
+{
+	KeyboardStateMachine sm;
+
+	KEYBOARDSTATES stateNow = sm.GetCurrentState();
+
+	sm.Trigger(KEYBOARDTRIGGERS::DEFAULTENTRY);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATES::DEFAULT)
+		throw "Keyboard state not correct";
+
+	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATES::DEFAULT)
+		throw "Keyboard state not correct";
+
+	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATES::CAPSLOCKED)
+		throw "Keyboard state not correct";
+
+	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATES::CAPSLOCKED)
+		throw "Keyboard state not correct";
+
+	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATES::DEFAULT)
+		throw "Keyboard state not correct";
 }
