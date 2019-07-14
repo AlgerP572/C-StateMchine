@@ -2,6 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SimpleStateMachine\Idle.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleStateMachine\Final.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -10,10 +19,25 @@
     <Filter Include="Src">
       <UniqueIdentifier>{e3f8d46b-dce0-48b7-94bd-5973ffe2e2a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SimpleStateMachine">
+      <UniqueIdentifier>{7423edd0-26b7-49d3-9b0c-601122facb69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\Idle.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\StatesTriggers.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\Final.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h">
+      <Filter>SimpleStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

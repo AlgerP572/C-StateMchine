@@ -66,8 +66,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SimpleStateMachine\Final.cpp" />
+    <ClCompile Include="SimpleStateMachine\Idle.cpp" />
+    <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SimpleStateMachine\Final.h" />
+    <ClInclude Include="SimpleStateMachine\Idle.h" />
+    <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h" />
+    <ClInclude Include="SimpleStateMachine\StatesTriggers.h" />
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
