@@ -78,6 +78,12 @@ public:
 			_triggers[i] = nullptr;
 		}
 	}
+
+	virtual EnumState EntryAction()
+	{
+		State::EntryAction();
+		return EnumState::NOSTATECHANGE;
+	}
 	
 	EnumState virtual Trigger(EnumTrigger trigger)
 	{
@@ -133,7 +139,12 @@ private:
 		else
 		{
 			_currentState = newState;			
-			_childStates[(int) _currentState]->EntryAction();
+			EnumState nextState = _childStates[(int) _currentState]->EntryAction();
+
+			if (nextState != EnumState::NOSTATECHANGE)
+			{
+				ChangeState(nextState)
+			}
 		}
 	}
 
