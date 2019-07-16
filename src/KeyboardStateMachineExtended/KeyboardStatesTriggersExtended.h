@@ -1,5 +1,5 @@
 /*
- * StateTriggers.h:
+ * StateTriggersExtended.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -24,7 +24,7 @@
 
 #include "../StateMachine.h"
 
-enum class KEYBOARDSTATES
+enum class KEYBOARDSTATESExtended
 {
 	NOSTATE = RESERVED_NO_STATE,
 	NOSTATECHANGE = RESERVED_NO_STATE_CHANGE,
@@ -33,7 +33,7 @@ enum class KEYBOARDSTATES
 	Count
 };
 
-enum class KEYBOARDTRIGGERS
+enum class KEYBOARDTRIGGERSExtended
 {
 	DEFAULTENTRY = RESERVED_TRIGGER_DEFAULT_ENTRY,
 	DEFAULTEXIT = RESERVED_TRIGGER_DEFAULT_EXIT,

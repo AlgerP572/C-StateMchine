@@ -33,7 +33,4 @@ class KeyboardStateMachine : public OrState<KeyboardStateMachine,
 {
 public:
 	KeyboardStateMachine();
-
-	void virtual EntryAction();
-	void virtual ExitAction();
 };

@@ -1,5 +1,5 @@
 /*
- * KeyboardStateMachine.h:
+ * KeyboardStateMachineExtended.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -22,18 +22,15 @@
 */
 #pragma once
 
-#include "KeyboardStatesTriggers.h"
+#include "KeyboardStatesTriggersExtended.h"
 
-class KeyboardStateMachine : public OrState<KeyboardStateMachine,
-	KEYBOARDTRIGGERS,
-	(int)KEYBOARDTRIGGERS::Count,
-	KEYBOARDSTATES,
-	(int)KEYBOARDSTATES::Count,
-	KEYBOARDSTATES::DEFAULT>
+class KeyboardStateMachineExtended : public OrState<KeyboardStateMachineExtended,
+	KEYBOARDTRIGGERSExtended,
+	(int)KEYBOARDTRIGGERSExtended::Count,
+	KEYBOARDSTATESExtended,
+	(int)KEYBOARDSTATESExtended::Count,
+	KEYBOARDSTATESExtended::DEFAULT>
 {
 public:
-	KeyboardStateMachine();
-
-	void virtual EntryAction();
-	void virtual ExitAction();
+	KeyboardStateMachineExtended();	
 };

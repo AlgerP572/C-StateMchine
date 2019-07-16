@@ -32,11 +32,3 @@ KeyboardStateMachine::KeyboardStateMachine()
 	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
 	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
 }
-
-void KeyboardStateMachine::EntryAction()
-{
-}
-
-void KeyboardStateMachine::ExitAction()
-{
-}

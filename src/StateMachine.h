@@ -79,7 +79,7 @@ public:
 		}
 	}
 
-	virtual EnumState EntryAction()
+	virtual EnumState EntryAction(EnumState currentState)
 	{
 		State::EntryAction();
 		return EnumState::NOSTATECHANGE;
@@ -129,7 +129,7 @@ private:
 
 		if (_currentState != EnumState::NOSTATE)
 		{
-			_childStates[(int) _currentState]->ExitAction();
+			_childStates[(int) _currentState]->ExitAction(_currentState);
 		}
 
 		if (newState == EnumState::NOSTATE)
@@ -139,7 +139,7 @@ private:
 		else
 		{
 			_currentState = newState;			
-			EnumState nextState = _childStates[(int) _currentState]->EntryAction();
+			EnumState nextState = _childStates[(int) _currentState]->EntryAction(_currentState);
 
 			if (nextState != EnumState::NOSTATECHANGE)
 			{

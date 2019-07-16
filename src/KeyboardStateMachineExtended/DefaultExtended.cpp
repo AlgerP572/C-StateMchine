@@ -1,5 +1,5 @@
 /*
- * Default.cpp:
+ * DefaultExtended.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,22 +20,22 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyboardStatesTriggers.h"
-#include "Default.h"
+#include "KeyboardStatesTriggersExtended.h"
+#include "DefaultExtended.h"
 
 
-Default::Default()
+DefaultExtended::DefaultExtended()
 {
-	AddTriggerGuard(KEYBOARDTRIGGERS::CAPSLOCK, &Default::CapsLockTriggerGuard);
-	AddTriggerGuard(KEYBOARDTRIGGERS::ANYKEY, &Default::AnyKeyTriggerGuard);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::CAPSLOCK, &DefaultExtended::CapsLockTriggerGuard);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &DefaultExtended::AnyKeyTriggerGuard);
 }
 
-KEYBOARDSTATES Default::CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger)
+KEYBOARDSTATESExtended DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATES::CAPSLOCKED;
+	return KEYBOARDSTATESExtended::CAPSLOCKED;
 }
 
-KEYBOARDSTATES Default::AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger)
+KEYBOARDSTATESExtended DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATES::DEFAULT;
+	return KEYBOARDSTATESExtended::DEFAULT;
 }

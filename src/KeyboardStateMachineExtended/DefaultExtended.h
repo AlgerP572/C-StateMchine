@@ -1,5 +1,5 @@
 /*
- * Default.h:
+ * DefaultExtended.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -22,20 +22,20 @@
 */
 #pragma once
 
-#include "KeyboardStatesTriggers.h"
+#include "KeyboardStatesTriggersExtended.h"
 #include "../StateMachine.h"
 
-class Default : public StateTemplate<Default,
-	KEYBOARDTRIGGERS,
-	(int)KEYBOARDTRIGGERS::Count,
-	KEYBOARDSTATES>
+class DefaultExtended : public StateTemplate<DefaultExtended,
+	KEYBOARDTRIGGERSExtended,
+	(int)KEYBOARDTRIGGERSExtended::Count,
+	KEYBOARDSTATESExtended>
 {
 private:
-	KEYBOARDSTATES CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger);
-	KEYBOARDSTATES AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger);
+	KEYBOARDSTATESExtended CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
+	KEYBOARDSTATESExtended AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
 
 public:
-	Default();
-	void virtual EntryAction() {};
-	void virtual ExitAction() {};
+	DefaultExtended();	
+	void EntryAction() override {};
+	void ExitAction() override {};
 };

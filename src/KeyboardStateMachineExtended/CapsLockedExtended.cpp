@@ -1,5 +1,5 @@
 /*
- * CapsLocked.cpp:
+ * CapsLockedExtended.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,22 +20,22 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyboardStatesTriggers.h"
-#include "CapsLocked.h"
+#include "KeyboardStatesTriggersExtended.h"
+#include "CapsLockedExtended.h"
 
 
-CapsLocked::CapsLocked()
+CapsLockedExtended::CapsLockedExtended()
 {
-	AddTriggerGuard(KEYBOARDTRIGGERS::CAPSLOCK, &CapsLocked::CapsLockTriggerGuard);
-	AddTriggerGuard(KEYBOARDTRIGGERS::ANYKEY, &CapsLocked::AnyKeyTriggerGuard);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::CAPSLOCK, &CapsLockedExtended::CapsLockTriggerGuard);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &CapsLockedExtended::AnyKeyTriggerGuard);
 }
 
-KEYBOARDSTATES CapsLocked::CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger)
+KEYBOARDSTATESExtended CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATES::DEFAULT;
+	return KEYBOARDSTATESExtended::DEFAULT;
 }
 
-KEYBOARDSTATES CapsLocked::AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger)
+KEYBOARDSTATESExtended CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATES::CAPSLOCKED;
+	return KEYBOARDSTATESExtended::CAPSLOCKED;
 }

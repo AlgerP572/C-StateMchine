@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * KeybaordStateMachineExtended.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,23 +20,15 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#include "KeyBoardStateMachineExtended.h"
+#include "DefaultExtended.h"
+#include "CapsLockedExtended.h"
 
-KeyboardStateMachine::KeyboardStateMachine()
+KeyboardStateMachineExtended::KeyboardStateMachineExtended()
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
+	DefaultExtended* defaultState = new DefaultExtended();
+	CapsLockedExtended* capsLockedState = new CapsLockedExtended();
 
-	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
-}
-
-void KeyboardStateMachine::EntryAction()
-{
-}
-
-void KeyboardStateMachine::ExitAction()
-{
+	AddState(KEYBOARDSTATESExtended::DEFAULT, *defaultState);
+	AddState(KEYBOARDSTATESExtended::CAPSLOCKED, *capsLockedState);
 }
