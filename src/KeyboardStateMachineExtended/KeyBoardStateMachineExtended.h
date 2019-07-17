@@ -23,6 +23,7 @@
 #pragma once
 
 #include "KeyboardStatesTriggersExtended.h"
+#include "KeyboardStateModel.h"
 
 class KeyboardStateMachineExtended : public OrState<KeyboardStateMachineExtended,
 	KEYBOARDTRIGGERSExtended,
@@ -30,7 +31,7 @@ class KeyboardStateMachineExtended : public OrState<KeyboardStateMachineExtended
 	KEYBOARDSTATESExtended,
 	(int)KEYBOARDSTATESExtended::Count,
 	KEYBOARDSTATESExtended::DEFAULT>
-{
+{	
 public:
-	KeyboardStateMachineExtended();	
+	KeyboardStateMachineExtended(KeyboardStateModel& stateModel);
 };

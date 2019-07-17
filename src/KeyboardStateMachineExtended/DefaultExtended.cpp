@@ -21,10 +21,12 @@
  ***********************************************************************
 */
 #include "KeyboardStatesTriggersExtended.h"
+#include "KeyboardStateModel.h"
 #include "DefaultExtended.h"
 
 
-DefaultExtended::DefaultExtended()
+DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
+	_stateModel(stateModel)
 {
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::CAPSLOCK, &DefaultExtended::CapsLockTriggerGuard);
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &DefaultExtended::AnyKeyTriggerGuard);
@@ -37,5 +39,20 @@ KEYBOARDSTATESExtended DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExt
 
 KEYBOARDSTATESExtended DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATESExtended::DEFAULT;
+	if (_stateModel.GetKeyCount() > 0)
+	{
+		return KEYBOARDSTATESExtended::DEFAULT;
+	}
+	else
+	{
+		return KEYBOARDSTATESExtended::NOSTATE;
+	}
 }
+
+void DefaultExtended::ExitAction()
+{
+	if (_stateModel.GetPressedKey() != 'C')
+	{
+		_stateModel.DecrementKeyCount();
+	}
+};

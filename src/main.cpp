@@ -22,14 +22,18 @@
 */
 #include "./SimpleStateMachine/SimpleStateMachine.h"
 #include "./KeyboardStateMachine/KeyBoardStateMachine.h"
+#include "./KeyboardStateMachineExtended/KeyboardStateModel.h"
+#include "./KeyboardStateMachineExtended/KeyBoardStateMachineExtended.h"
 
 void TestSimpleStateMachine();
 void TestKeyboardStateMachine();
+void TestKeyboardStateMachineExtended();
 
 int main(void)
 {	
 	TestSimpleStateMachine();
 	TestKeyboardStateMachine();
+	TestKeyboardStateMachineExtended();
 	return 0;
 }
 
@@ -86,5 +90,37 @@ void TestKeyboardStateMachine()
 	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::DEFAULT)
+		throw "Keyboard state not correct";
+}
+
+void TestKeyboardStateMachineExtended()
+{
+	KeyboardStateModel stateModel;
+	stateModel.SetKeyCount(1000);
+
+	KeyboardStateMachineExtended sm(stateModel);
+
+	KEYBOARDSTATESExtended stateNow = sm.GetCurrentState();
+
+	sm.Trigger(KEYBOARDTRIGGERSExtended::DEFAULTENTRY);
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATESExtended::DEFAULT)
+		throw "Keyboard state not correct";
+
+	while (stateModel.GetKeyCount() > -1)
+	{
+		stateModel.SetPressedKey('a');
+		sm.Trigger(KEYBOARDTRIGGERSExtended::ANYKEY);
+		stateNow = sm.GetCurrentState();
+
+		// Hack using 'C' to represent the CAPSLOCK key
+		stateModel.SetPressedKey('C');
+		sm.Trigger(KEYBOARDTRIGGERSExtended::CAPSLOCK);
+		stateNow = sm.GetCurrentState();		
+	}
+
+	// Should default exit when count is zero...
+	stateNow = sm.GetCurrentState();
+	if (stateNow != KEYBOARDSTATESExtended::NOSTATE)
 		throw "Keyboard state not correct";
 }

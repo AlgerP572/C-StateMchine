@@ -21,13 +21,14 @@
  ***********************************************************************
 */
 #include "KeyBoardStateMachineExtended.h"
+#include "KeyboardStateModel.h"
 #include "DefaultExtended.h"
 #include "CapsLockedExtended.h"
 
-KeyboardStateMachineExtended::KeyboardStateMachineExtended()
+KeyboardStateMachineExtended::KeyboardStateMachineExtended(KeyboardStateModel& stateModel)
 {
-	DefaultExtended* defaultState = new DefaultExtended();
-	CapsLockedExtended* capsLockedState = new CapsLockedExtended();
+	DefaultExtended* defaultState = new DefaultExtended(stateModel);
+	CapsLockedExtended* capsLockedState = new CapsLockedExtended(stateModel);
 
 	AddState(KEYBOARDSTATESExtended::DEFAULT, *defaultState);
 	AddState(KEYBOARDSTATESExtended::CAPSLOCKED, *capsLockedState);

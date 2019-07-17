@@ -1,5 +1,5 @@
 /*
- * CapsLockedExtended.h:
+ * KeyboardStateModel.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -22,23 +22,16 @@
 */
 #pragma once
 
-#include "KeyboardStatesTriggersExtended.h"
-#include "KeyboardStateModel.h"
-#include "../StateMachine.h"
-
-class CapsLockedExtended : public StateTemplate<CapsLockedExtended,
-	KEYBOARDTRIGGERSExtended,
-	(int)KEYBOARDTRIGGERSExtended::Count,
-	KEYBOARDSTATESExtended>
+class KeyboardStateModel
 {
-private:
-	KeyboardStateModel& _stateModel;
-
-	KEYBOARDSTATESExtended CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
-	KEYBOARDSTATESExtended AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
+	int _keyCount;
+	char _pressedKey;
 
 public:
-	CapsLockedExtended(KeyboardStateModel& stateModel);
-	void EntryAction() override {};
-	void ExitAction() override;
+	int GetKeyCount();
+	void SetKeyCount(int count);
+	void DecrementKeyCount();
+
+	char GetPressedKey();
+	void SetPressedKey(char key);
 };

@@ -29,6 +29,9 @@
     <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateMachineExtended.cpp">
       <Filter>KeyboardStateMachineExtended</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateModel.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -85,6 +88,9 @@
       <Filter>KeyboardStateMachineExtended</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardStateMachineExtended\KeyboardStatesTriggersExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStateModel.h">
       <Filter>KeyboardStateMachineExtended</Filter>
     </ClInclude>
   </ItemGroup>

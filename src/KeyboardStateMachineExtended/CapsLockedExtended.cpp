@@ -24,7 +24,8 @@
 #include "CapsLockedExtended.h"
 
 
-CapsLockedExtended::CapsLockedExtended()
+CapsLockedExtended::CapsLockedExtended(KeyboardStateModel& stateModel) :
+	_stateModel(stateModel)
 {
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::CAPSLOCK, &CapsLockedExtended::CapsLockTriggerGuard);
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &CapsLockedExtended::AnyKeyTriggerGuard);
@@ -37,5 +38,20 @@ KEYBOARDSTATESExtended CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERS
 
 KEYBOARDSTATESExtended CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
 {
-	return KEYBOARDSTATESExtended::CAPSLOCKED;
+	if (_stateModel.GetKeyCount() > 0)
+	{
+		return KEYBOARDSTATESExtended::CAPSLOCKED;
+	}
+	else
+	{
+		return KEYBOARDSTATESExtended::NOSTATE;
+	}
+}
+
+void CapsLockedExtended::ExitAction()
+{
+	if (_stateModel.GetPressedKey() != 'C')
+	{
+		_stateModel.DecrementKeyCount();
+	}
 }
