@@ -44,20 +44,21 @@ void TestSimpleStateMachine()
 	STATES stateNow = sm.GetCurrentState();
 
 	// Init done move to intial state.
-	sm.Trigger(TRIGGERS::DEFAULTENTRY);
+	Transition<STATES> transition;
+	sm.Trigger(TRIGGERS::DEFAULTENTRY, transition);
 	stateNow = sm.GetCurrentState();
 
 	// Self-trigger IDLE to IDLE
-	sm.Trigger(TRIGGERS::IDLETRIGGER);
+	sm.Trigger(TRIGGERS::IDLETRIGGER, transition);
 	stateNow = sm.GetCurrentState();
 
-	sm.Trigger(TRIGGERS::FINALTRIGGER);
+	sm.Trigger(TRIGGERS::FINALTRIGGER, transition);
 	stateNow = sm.GetCurrentState();
 
-	sm.Trigger(TRIGGERS::IDLETRIGGER);
+	sm.Trigger(TRIGGERS::IDLETRIGGER, transition);
 	stateNow = sm.GetCurrentState();
 
-	sm.Trigger(TRIGGERS::DEFAULTEXIT);
+	sm.Trigger(TRIGGERS::DEFAULTEXIT, transition);
 	stateNow = sm.GetCurrentState();
 }
 
@@ -67,27 +68,28 @@ void TestKeyboardStateMachine()
 
 	KEYBOARDSTATES stateNow = sm.GetCurrentState();
 
-	sm.Trigger(KEYBOARDTRIGGERS::DEFAULTENTRY);
+	Transition<KEYBOARDSTATES> transition;
+	sm.Trigger(KEYBOARDTRIGGERS::DEFAULTENTRY, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::DEFAULT)
 		throw "Keyboard state not correct";
 
-	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY);
+	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::DEFAULT)
 		throw "Keyboard state not correct";
 
-	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK);
+	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::CAPSLOCKED)
 		throw "Keyboard state not correct";
 
-	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY);
+	sm.Trigger(KEYBOARDTRIGGERS::ANYKEY, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::CAPSLOCKED)
 		throw "Keyboard state not correct";
 
-	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK);
+	sm.Trigger(KEYBOARDTRIGGERS::CAPSLOCK, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::DEFAULT)
 		throw "Keyboard state not correct";
@@ -102,7 +104,8 @@ void TestKeyboardStateMachineExtended()
 
 	KEYBOARDSTATESExtended stateNow = sm.GetCurrentState();
 
-	sm.Trigger(KEYBOARDTRIGGERSExtended::DEFAULTENTRY);
+	Transition<KEYBOARDSTATESExtended> transition;
+	sm.Trigger(KEYBOARDTRIGGERSExtended::DEFAULTENTRY, transition);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATESExtended::DEFAULT)
 		throw "Keyboard state not correct";
@@ -110,12 +113,12 @@ void TestKeyboardStateMachineExtended()
 	while (stateModel.GetKeyCount() > -1)
 	{
 		stateModel.SetPressedKey('a');
-		sm.Trigger(KEYBOARDTRIGGERSExtended::ANYKEY);
+		sm.Trigger(KEYBOARDTRIGGERSExtended::ANYKEY, transition);
 		stateNow = sm.GetCurrentState();
 
 		// Hack using 'C' to represent the CAPSLOCK key
 		stateModel.SetPressedKey('C');
-		sm.Trigger(KEYBOARDTRIGGERSExtended::CAPSLOCK);
+		sm.Trigger(KEYBOARDTRIGGERSExtended::CAPSLOCK, transition);
 		stateNow = sm.GetCurrentState();		
 	}
 

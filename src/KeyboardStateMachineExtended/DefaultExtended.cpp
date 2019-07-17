@@ -23,6 +23,7 @@
 #include "KeyboardStatesTriggersExtended.h"
 #include "KeyboardStateModel.h"
 #include "DefaultExtended.h"
+#include <functional>
 
 
 DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
@@ -42,7 +43,9 @@ void DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Trans
 	if (_stateModel.GetKeyCount() > 0)
 	{
 		transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
-		transition.Action = _stateModel.DecrementKeyCount;
+
+		std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
+		transition.Action = &fn.target;
 	}
 	else
 	{

@@ -22,6 +22,7 @@
 */
 #include "KeyboardStatesTriggersExtended.h"
 #include "CapsLockedExtended.h"
+#include <functional>
 
 
 CapsLockedExtended::CapsLockedExtended(KeyboardStateModel& stateModel) :
@@ -41,7 +42,10 @@ void CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Tr
 	if (_stateModel.GetKeyCount() > 0)
 	{
 		transition.TargetState = KEYBOARDSTATESExtended::CAPSLOCKED;
-		transition.Action = _stateModel.DecrementKeyCount;
+
+		
+		std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
+		transition.Action = &fn.target;
 	}
 	else
 	{
