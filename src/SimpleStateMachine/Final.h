@@ -31,7 +31,7 @@ class Final : public StateTemplate<Final,
 	STATES>
 {
 private:
-	STATES IdleTriggerGuard(TRIGGERS trigger);
+	void IdleTriggerGuard(TRIGGERS trigger, Transition<STATES> &transition);
 
 public:
 	Final();

@@ -30,12 +30,12 @@ CapsLocked::CapsLocked()
 	AddTriggerGuard(KEYBOARDTRIGGERS::ANYKEY, &CapsLocked::AnyKeyTriggerGuard);
 }
 
-KEYBOARDSTATES CapsLocked::CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger)
+void CapsLocked::CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger, Transition<KEYBOARDSTATES>& transition)
 {
-	return KEYBOARDSTATES::DEFAULT;
+	transition.TargetState = KEYBOARDSTATES::DEFAULT;
 }
 
-KEYBOARDSTATES CapsLocked::AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger)
+void CapsLocked::AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger, Transition<KEYBOARDSTATES>& transition)
 {
-	return KEYBOARDSTATES::CAPSLOCKED;
+	transition.TargetState = KEYBOARDSTATES::CAPSLOCKED;
 }

@@ -31,27 +31,20 @@ CapsLockedExtended::CapsLockedExtended(KeyboardStateModel& stateModel) :
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &CapsLockedExtended::AnyKeyTriggerGuard);
 }
 
-KEYBOARDSTATESExtended CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+void CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
 {
-	return KEYBOARDSTATESExtended::DEFAULT;
+	transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
 }
 
-KEYBOARDSTATESExtended CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+void CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
 {
 	if (_stateModel.GetKeyCount() > 0)
 	{
-		return KEYBOARDSTATESExtended::CAPSLOCKED;
+		transition.TargetState = KEYBOARDSTATESExtended::CAPSLOCKED;
+		transition.Action = _stateModel.DecrementKeyCount;
 	}
 	else
 	{
-		return KEYBOARDSTATESExtended::NOSTATE;
-	}
-}
-
-void CapsLockedExtended::ExitAction()
-{
-	if (_stateModel.GetPressedKey() != 'C')
-	{
-		_stateModel.DecrementKeyCount();
+		transition.TargetState = KEYBOARDSTATESExtended::NOSTATE;
 	}
 }

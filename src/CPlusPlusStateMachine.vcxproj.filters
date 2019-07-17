@@ -37,9 +37,6 @@
     <Filter Include="Headers">
       <UniqueIdentifier>{4e676e28-a575-472d-8900-ab68b558a589}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src">
-      <UniqueIdentifier>{e3f8d46b-dce0-48b7-94bd-5973ffe2e2a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SimpleStateMachine">
       <UniqueIdentifier>{7423edd0-26b7-49d3-9b0c-601122facb69}</UniqueIdentifier>
     </Filter>

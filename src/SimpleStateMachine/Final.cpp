@@ -28,7 +28,7 @@ Final::Final()
 	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Final::IdleTriggerGuard);
 }
 
-STATES Final::IdleTriggerGuard(TRIGGERS trigger)
+void Final::IdleTriggerGuard(TRIGGERS trigger, Transition<STATES>& transition)
 {
-	return STATES::IDLE;
+	transition.TargetState = STATES::IDLE;
 }

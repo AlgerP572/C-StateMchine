@@ -33,8 +33,8 @@ class DefaultExtended : public StateTemplate<DefaultExtended,
 private:
 	KeyboardStateModel& _stateModel;
 
-	KEYBOARDSTATESExtended CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
-	KEYBOARDSTATESExtended AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger);
+	void CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition);
+	void AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition);
 
 public:
 	DefaultExtended(KeyboardStateModel& stateModel);

@@ -31,8 +31,8 @@ class Default : public StateTemplate<Default,
 	KEYBOARDSTATES>
 {
 private:
-	KEYBOARDSTATES CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger);
-	KEYBOARDSTATES AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger);
+	void CapsLockTriggerGuard(KEYBOARDTRIGGERS trigger, Transition<KEYBOARDSTATES>& transition);
+	void AnyKeyTriggerGuard(KEYBOARDTRIGGERS trigger, Transition<KEYBOARDSTATES>& transition);
 
 public:
 	Default();

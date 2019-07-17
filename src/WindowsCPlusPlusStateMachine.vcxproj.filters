@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="KeyboardStateMachine">
+      <UniqueIdentifier>{a7c6fea3-baa6-4eef-aeae-5048f39c7763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KeyboardStateMachineExtended">
+      <UniqueIdentifier>{4dd9575b-57a6-459e-9f62-513f291e4e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SimpleStateMachine">
+      <UniqueIdentifier>{9ee1f65d-035d-4137-920d-60f1d08e48e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\CapsLocked.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\Default.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachine\KeyboardStateMachine.cpp">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\CapsLockedExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\DefaultExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateMachineExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateModel.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleStateMachine\Final.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleStateMachine\Idle.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp">
+      <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\CapsLocked.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\Default.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\KeyBoardStateMachine.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachine\KeyboardStatesTriggers.h">
+      <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\CapsLockedExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\DefaultExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyBoardStateMachineExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStateModel.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStatesTriggersExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\Final.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\Idle.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStateMachine\StatesTriggers.h">
+      <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
