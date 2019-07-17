@@ -20,6 +20,18 @@
     <ClCompile Include="KeyboardStateMachine\CapsLocked.cpp">
       <Filter>KeyboardStateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\CapsLockedExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\DefaultExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateMachineExtended.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateModel.cpp">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -33,6 +45,9 @@
     </Filter>
     <Filter Include="KeyboardStateMachine">
       <UniqueIdentifier>{91344073-0088-4886-a52e-75280dc50ed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KeyboardStateMachineExtended">
+      <UniqueIdentifier>{d1a1a33e-3c0e-4aee-a73c-49875c71ae54}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +77,21 @@
     </ClInclude>
     <ClInclude Include="KeyboardStateMachine\KeyboardStatesTriggers.h">
       <Filter>KeyboardStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\CapsLockedExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\DefaultExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyBoardStateMachineExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStatesTriggersExtended.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStateModel.h">
+      <Filter>KeyboardStateMachineExtended</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

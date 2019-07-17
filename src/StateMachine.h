@@ -58,8 +58,8 @@
 class State
 {
 public:
-	virtual void EntryAction() = 0;
-	virtual void ExitAction() = 0;	
+	virtual void EntryAction() {};
+	virtual void ExitAction() {};
 };
 
 template <class T, typename EnumTrigger, int countTriggers, typename EnumState>
@@ -79,10 +79,15 @@ public:
 		}
 	}
 
-	virtual EnumState EntryAction()
+	virtual EnumState EntryAction(EnumState currentState)
+	{
+		EntryAction();
+		return EnumState::NOSTATECHANGE;
+	}
+
+	void EntryAction() override
 	{
 		State::EntryAction();
-		return EnumState::NOSTATECHANGE;
 	}
 	
 	EnumState virtual Trigger(EnumTrigger trigger)
@@ -139,11 +144,11 @@ private:
 		else
 		{
 			_currentState = newState;			
-			EnumState nextState = _childStates[(int) _currentState]->EntryAction();
+			EnumState nextState = ((StateTemplate<T, EnumTrigger, numTriggers, EnumState>*) _childStates[(int) _currentState])->EntryAction(_currentState);
 
 			if (nextState != EnumState::NOSTATECHANGE)
 			{
-				ChangeState(nextState)
+				ChangeState(nextState);
 			}
 		}
 	}

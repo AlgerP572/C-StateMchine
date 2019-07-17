@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * DefaultExtended.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,39 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#include "KeyboardStatesTriggersExtended.h"
+#include "KeyboardStateModel.h"
+#include "DefaultExtended.h"
 
-KeyboardStateMachine::KeyboardStateMachine()
+
+DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
+	_stateModel(stateModel)
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
-
-	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::CAPSLOCK, &DefaultExtended::CapsLockTriggerGuard);
+	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &DefaultExtended::AnyKeyTriggerGuard);
 }
+
+KEYBOARDSTATESExtended DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+{
+	return KEYBOARDSTATESExtended::CAPSLOCKED;
+}
+
+KEYBOARDSTATESExtended DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+{
+	if (_stateModel.GetKeyCount() > 0)
+	{
+		return KEYBOARDSTATESExtended::DEFAULT;
+	}
+	else
+	{
+		return KEYBOARDSTATESExtended::NOSTATE;
+	}
+}
+
+void DefaultExtended::ExitAction()
+{
+	if (_stateModel.GetPressedKey() != 'C')
+	{
+		_stateModel.DecrementKeyCount();
+	}
+};

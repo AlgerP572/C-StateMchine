@@ -65,6 +65,10 @@
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KeyboardStateMachineExtended\CapsLockedExtended.cpp" />
+    <ClCompile Include="KeyboardStateMachineExtended\DefaultExtended.cpp" />
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateMachineExtended.cpp" />
+    <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateModel.cpp" />
     <ClCompile Include="KeyboardStateMachine\CapsLocked.cpp" />
     <ClCompile Include="KeyboardStateMachine\Default.cpp" />
     <ClCompile Include="KeyboardStateMachine\KeyboardStateMachine.cpp" />
@@ -74,6 +78,11 @@
     <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyboardStateMachineExtended\CapsLockedExtended.h" />
+    <ClInclude Include="KeyboardStateMachineExtended\DefaultExtended.h" />
+    <ClInclude Include="KeyboardStateMachineExtended\KeyBoardStateMachineExtended.h" />
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStateModel.h" />
+    <ClInclude Include="KeyboardStateMachineExtended\KeyboardStatesTriggersExtended.h" />
     <ClInclude Include="KeyboardStateMachine\CapsLocked.h" />
     <ClInclude Include="KeyboardStateMachine\Default.h" />
     <ClInclude Include="KeyboardStateMachine\KeyBoardStateMachine.h" />

@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * KeyboardStateModel.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,18 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#pragma once
 
-KeyboardStateMachine::KeyboardStateMachine()
+class KeyboardStateModel
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
+	int _keyCount;
+	char _pressedKey;
 
-	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
-}
+public:
+	int GetKeyCount();
+	void SetKeyCount(int count);
+	void DecrementKeyCount();
+
+	char GetPressedKey();
+	void SetPressedKey(char key);
+};

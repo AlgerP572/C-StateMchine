@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * StateTriggersExtended.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,24 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#pragma once
 
-KeyboardStateMachine::KeyboardStateMachine()
+#include "../StateMachine.h"
+
+enum class KEYBOARDSTATESExtended
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
+	NOSTATE = RESERVED_NO_STATE,
+	NOSTATECHANGE = RESERVED_NO_STATE_CHANGE,
+	DEFAULT = 0,
+	CAPSLOCKED,
+	Count
+};
 
-	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
-}
+enum class KEYBOARDTRIGGERSExtended
+{
+	DEFAULTENTRY = RESERVED_TRIGGER_DEFAULT_ENTRY,
+	DEFAULTEXIT = RESERVED_TRIGGER_DEFAULT_EXIT,
+	CAPSLOCK = 0,
+	ANYKEY,
+	Count
+};
