@@ -112,9 +112,7 @@ void TestKeyboardStateMachineExtended()
 		stateModel.SetPressedKey('a');
 		sm.Trigger(KEYBOARDTRIGGERSExtended::ANYKEY);
 		stateNow = sm.GetCurrentState();
-
-		// Hack using 'C' to represent the CAPSLOCK key
-		stateModel.SetPressedKey('C');
+		
 		sm.Trigger(KEYBOARDTRIGGERSExtended::CAPSLOCK);
 		stateNow = sm.GetCurrentState();		
 	}
