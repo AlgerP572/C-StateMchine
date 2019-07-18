@@ -29,8 +29,8 @@ KeyboardStateMachine::KeyboardStateMachine()
 	Default* defaultState = new Default();
 	CapsLocked* capsLockedState = new CapsLocked();
 
-	AddState(KEYBOARDSTATES::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, *capsLockedState);
+	AddState(KEYBOARDSTATES::DEFAULT, defaultState);
+	AddState(KEYBOARDSTATES::CAPSLOCKED, capsLockedState);
 }
 
 KeyboardStateMachine::~KeyboardStateMachine()

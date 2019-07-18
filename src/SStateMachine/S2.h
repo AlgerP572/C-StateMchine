@@ -1,5 +1,5 @@
 /*
- * SimpleStateMachine.h:
+ * S2.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,23 +20,19 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "SimpleStateMachine.h"
-#include "Idle.h"
-#include "Final.h"
+#pragma once
 
-SimpleStateMachine::SimpleStateMachine()
+#include "SStatesTriggers.h"
+
+class S2 : public OrState<S2,
+	STRIGGERS,
+	(int)STRIGGERS::Count,
+	SSTATES,
+	(int)SSTATES::Count,
+	SSTATES::S21>
 {
-	Idle* idle = new Idle();
-	Final* final = new Final();
+public:
+	S2();
 
-	AddState(STATES::IDLE, idle);
-	AddState(STATES::FINAL, final);
-}
-
-void SimpleStateMachine::EntryAction()
-{
-}
-
-void SimpleStateMachine::ExitAction()
-{
-}
+	void ExitAction() override;
+};

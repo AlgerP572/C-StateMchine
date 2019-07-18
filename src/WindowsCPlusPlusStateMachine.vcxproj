@@ -30,6 +30,11 @@
     <ClCompile Include="SimpleStateMachine\Final.cpp" />
     <ClCompile Include="SimpleStateMachine\Idle.cpp" />
     <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp" />
+    <ClCompile Include="SStateMachine\s.cpp" />
+    <ClCompile Include="SStateMachine\S1.cpp" />
+    <ClCompile Include="SStateMachine\S11.cpp" />
+    <ClCompile Include="SStateMachine\S2.cpp" />
+    <ClCompile Include="SStateMachine\S21.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardStateMachineExtended\CapsLockedExtended.h" />
@@ -45,6 +50,12 @@
     <ClInclude Include="SimpleStateMachine\Idle.h" />
     <ClInclude Include="SimpleStateMachine\SimpleStateMachine.h" />
     <ClInclude Include="SimpleStateMachine\StatesTriggers.h" />
+    <ClInclude Include="SStateMachine\s.h" />
+    <ClInclude Include="SStateMachine\S1.h" />
+    <ClInclude Include="SStateMachine\S11.h" />
+    <ClInclude Include="SStateMachine\S2.h" />
+    <ClInclude Include="SStateMachine\S21.h" />
+    <ClInclude Include="SStateMachine\SStatesTriggers.h" />
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

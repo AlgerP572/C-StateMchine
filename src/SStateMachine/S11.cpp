@@ -1,5 +1,5 @@
 /*
- * SimpleStateMachine.h:
+ * S11.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,23 +20,14 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "SimpleStateMachine.h"
-#include "Idle.h"
-#include "Final.h"
+#include "S11.h"
+#include <stdio.h>
 
-SimpleStateMachine::SimpleStateMachine()
-{
-	Idle* idle = new Idle();
-	Final* final = new Final();
-
-	AddState(STATES::IDLE, idle);
-	AddState(STATES::FINAL, final);
-}
-
-void SimpleStateMachine::EntryAction()
+S11::S11()
 {
 }
 
-void SimpleStateMachine::ExitAction()
+void S11::ExitAction()
 {
+	printf("a() : ");
 }

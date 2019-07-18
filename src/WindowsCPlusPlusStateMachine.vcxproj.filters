@@ -22,6 +22,9 @@
     <Filter Include="SimpleStateMachine">
       <UniqueIdentifier>{9ee1f65d-035d-4137-920d-60f1d08e48e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SStateMachine">
+      <UniqueIdentifier>{a70943b0-f83f-4e0b-bd06-5858e5f8045b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,21 @@
     </ClCompile>
     <ClCompile Include="SimpleStateMachine\SimpleStateMachine.cpp">
       <Filter>SimpleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\s.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S1.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S2.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S11.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S21.cpp">
+      <Filter>SStateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +118,24 @@
     </ClInclude>
     <ClInclude Include="SimpleStateMachine\StatesTriggers.h">
       <Filter>SimpleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\s.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\SStatesTriggers.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S1.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S11.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S2.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S21.h">
+      <Filter>SStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

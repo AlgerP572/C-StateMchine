@@ -24,16 +24,19 @@
 #include "./KeyboardStateMachine/KeyBoardStateMachine.h"
 #include "./KeyboardStateMachineExtended/KeyboardStateModel.h"
 #include "./KeyboardStateMachineExtended/KeyBoardStateMachineExtended.h"
+#include "./SStateMachine/s.h"
 
 void TestSimpleStateMachine();
 void TestKeyboardStateMachine();
 void TestKeyboardStateMachineExtended();
+void TestSStateMachineExtended();
 
 int main(void)
 {	
 	TestSimpleStateMachine();
 	TestKeyboardStateMachine();
 	TestKeyboardStateMachineExtended();
+	TestSStateMachineExtended();
 	return 0;
 }
 
@@ -125,4 +128,21 @@ void TestKeyboardStateMachineExtended()
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATESExtended::NOSTATE)
 		throw "Keyboard state not correct";
+}
+
+void TestSStateMachineExtended()
+{
+	S stateMachine;
+
+	SSTATES stateNow = stateMachine.GetCurrentState();
+
+	stateMachine.Trigger(STRIGGERS::DEFAULTENTRY);
+	stateNow = stateMachine.GetCurrentState();
+	if (stateNow != SSTATES::S1)
+		throw "S state not correct";
+
+	stateMachine.Trigger(STRIGGERS::T);
+	stateNow = stateMachine.GetCurrentState();
+	if (stateNow != SSTATES::S2)
+		throw "S state not correct";
 }

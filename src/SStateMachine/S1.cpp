@@ -1,5 +1,5 @@
 /*
- * SimpleStateMachine.h:
+ * S1.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,23 +20,37 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "SimpleStateMachine.h"
-#include "Idle.h"
-#include "Final.h"
+#include "S1.h"
+#include "S11.h"
+#include <stdio.h>
 
-SimpleStateMachine::SimpleStateMachine()
+S1::S1()
 {
-	Idle* idle = new Idle();
-	Final* final = new Final();
+	S11* s11 = new S11();
+	
+	AddState(SSTATES::S11, s11);
 
-	AddState(STATES::IDLE, idle);
-	AddState(STATES::FINAL, final);
+	AddTriggerGuard(STRIGGERS::T, &S1::TTriggerGuard);
 }
 
-void SimpleStateMachine::EntryAction()
+void S1::TTriggerGuard(STRIGGERS trigger, Transition<S1, SSTATES>& transition)
 {
+	printf("g() : ");
+	transition.TargetState = SSTATES::S2;
+	transition.Actions = &S1::TTransition;
 }
 
-void SimpleStateMachine::ExitAction()
+void S1::TTransition()
+{	
+	printf("t() : ");
+}
+
+void S1::ExitAction()
 {
+	// order is important here. According to UML the child state
+	// needs to exit first so call the base class first.
+	OrState::ExitAction();
+
+	// Now perform Exit action for this state.
+	printf("b() : ");	
 }

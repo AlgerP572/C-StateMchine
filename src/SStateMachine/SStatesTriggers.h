@@ -1,5 +1,5 @@
 /*
- * SimpleStateMachine.h:
+ * SStateTriggers.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,23 +20,26 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "SimpleStateMachine.h"
-#include "Idle.h"
-#include "Final.h"
+#pragma once
 
-SimpleStateMachine::SimpleStateMachine()
+#include "../StateMachine.h"
+
+enum class SSTATES
 {
-	Idle* idle = new Idle();
-	Final* final = new Final();
+	NOSTATE = RESERVED_NO_STATE,
+	NOSTATECHANGE = RESERVED_NO_STATE_CHANGE,
+	S = 0,
+	S1,
+	S11,
+	S2,
+	S21,
+	Count
+};
 
-	AddState(STATES::IDLE, idle);
-	AddState(STATES::FINAL, final);
-}
-
-void SimpleStateMachine::EntryAction()
+enum class STRIGGERS
 {
-}
-
-void SimpleStateMachine::ExitAction()
-{
-}
+	DEFAULTENTRY = RESERVED_TRIGGER_DEFAULT_ENTRY,
+	DEFAULTEXIT = RESERVED_TRIGGER_DEFAULT_EXIT,
+	T = 0,
+	Count
+};
