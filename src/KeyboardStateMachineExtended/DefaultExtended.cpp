@@ -33,22 +33,28 @@ DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &DefaultExtended::AnyKeyTriggerGuard);
 }
 
-void DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
+void DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<DefaultExtended, KEYBOARDSTATESExtended>& transition)
 {
 	transition.TargetState = KEYBOARDSTATESExtended::CAPSLOCKED;
 }
 
-void DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
+void DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<DefaultExtended, KEYBOARDSTATESExtended>& transition)
 {
 	if (_stateModel.GetKeyCount() > 0)
 	{
 		transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
 
 		std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
-		transition.Action = &fn.target;
+		transition.Actions = &DefaultExtended::AnyKeyTransition;
 	}
 	else
 	{
 		transition.TargetState = KEYBOARDSTATESExtended::NOSTATE;
 	}
 }
+
+void DefaultExtended::AnyKeyTransition()
+{
+	_stateModel.DecrementKeyCount();
+}
+

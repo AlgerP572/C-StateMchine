@@ -32,12 +32,12 @@ CapsLockedExtended::CapsLockedExtended(KeyboardStateModel& stateModel) :
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &CapsLockedExtended::AnyKeyTriggerGuard);
 }
 
-void CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
+void CapsLockedExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<CapsLockedExtended, KEYBOARDSTATESExtended>& transition)
 {
 	transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
 }
 
-void CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition)
+void CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<CapsLockedExtended, KEYBOARDSTATESExtended>& transition)
 {
 	if (_stateModel.GetKeyCount() > 0)
 	{
@@ -45,10 +45,15 @@ void CapsLockedExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Tr
 
 		
 		std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
-		transition.Action = &fn.target;
+		transition.Actions = &CapsLockedExtended::AnyKeyTransition;
 	}
 	else
 	{
 		transition.TargetState = KEYBOARDSTATESExtended::NOSTATE;
 	}
+}
+
+void CapsLockedExtended::AnyKeyTransition()
+{
+	_stateModel.DecrementKeyCount();
 }

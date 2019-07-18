@@ -34,11 +34,13 @@ class CapsLockedExtended : public StateTemplate<CapsLockedExtended,
 private:
 	KeyboardStateModel& _stateModel;
 
-	void CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition);
-	void AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<KEYBOARDSTATESExtended>& transition);
+	void CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<CapsLockedExtended, KEYBOARDSTATESExtended>& transition);
+	void AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<CapsLockedExtended, KEYBOARDSTATESExtended>& transition);
+
+	void AnyKeyTransition();
 
 public:
 	CapsLockedExtended(KeyboardStateModel& stateModel);
 	void EntryAction() override {};
-	void ExitAction() override;
+	void ExitAction() override {};
 };
