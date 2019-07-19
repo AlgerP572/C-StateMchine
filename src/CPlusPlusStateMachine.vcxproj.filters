@@ -32,6 +32,21 @@
     <ClCompile Include="KeyboardStateMachineExtended\KeyboardStateModel.cpp">
       <Filter>KeyboardStateMachineExtended</Filter>
     </ClCompile>
+    <ClCompile Include="SStateMachine\s.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S1.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S2.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S11.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SStateMachine\S21.cpp">
+      <Filter>SStateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -45,6 +60,9 @@
     </Filter>
     <Filter Include="KeyboardStateMachineExtended">
       <UniqueIdentifier>{d1a1a33e-3c0e-4aee-a73c-49875c71ae54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SStateMachine">
+      <UniqueIdentifier>{318ab14d-46dc-4f42-af66-79a3244f863e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +107,24 @@
     </ClInclude>
     <ClInclude Include="KeyboardStateMachineExtended\KeyboardStateModel.h">
       <Filter>KeyboardStateMachineExtended</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\s.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S1.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S2.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S11.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\S21.h">
+      <Filter>SStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="SStateMachine\SStatesTriggers.h">
+      <Filter>SStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
