@@ -136,10 +136,14 @@ public:
 		switch(trigger)
 		{
 		case EnumTrigger::DEFAULTENTRY:
+		{
+			_transition.Actions = nullptr;
+		}
+		// fall through...
 		case EnumTrigger::DEFAULTEXIT:
 		{
 			_transition.TargetState = EnumState::NOSTATE;
-			_transition.Actions = nullptr;
+			
 		}
 		break;
 		default:
