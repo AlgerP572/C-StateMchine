@@ -20,7 +20,7 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "S.h"
+#include "s.h"
 #include "S1.h"
 #include "S2.h"
 
