@@ -24,16 +24,19 @@
 #include "./KeyboardStateMachine/KeyBoardStateMachine.h"
 #include "./KeyboardStateMachineExtended/KeyboardStateModel.h"
 #include "./KeyboardStateMachineExtended/KeyBoardStateMachineExtended.h"
+#include "./SStateMachine/s.h"
 
 void TestSimpleStateMachine();
 void TestKeyboardStateMachine();
 void TestKeyboardStateMachineExtended();
+void TestSStateMachineExtended();
 
 int main(void)
 {	
 	TestSimpleStateMachine();
 	TestKeyboardStateMachine();
 	TestKeyboardStateMachineExtended();
+	TestSStateMachineExtended();
 	return 0;
 }
 
@@ -43,7 +46,7 @@ void TestSimpleStateMachine()
 
 	STATES stateNow = sm.GetCurrentState();
 
-	// Init done move to intial state.
+	// Init done move to intial state.	
 	sm.Trigger(TRIGGERS::DEFAULTENTRY);
 	stateNow = sm.GetCurrentState();
 
@@ -66,7 +69,7 @@ void TestKeyboardStateMachine()
 	KeyboardStateMachine sm;
 
 	KEYBOARDSTATES stateNow = sm.GetCurrentState();
-
+	
 	sm.Trigger(KEYBOARDTRIGGERS::DEFAULTENTRY);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATES::DEFAULT)
@@ -101,26 +104,45 @@ void TestKeyboardStateMachineExtended()
 	KeyboardStateMachineExtended sm(stateModel);
 
 	KEYBOARDSTATESExtended stateNow = sm.GetCurrentState();
-
+	
 	sm.Trigger(KEYBOARDTRIGGERSExtended::DEFAULTENTRY);
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATESExtended::DEFAULT)
 		throw "Keyboard state not correct";
 
-	while (stateModel.GetKeyCount() > -1)
+	while (stateNow != KEYBOARDSTATESExtended::NOSTATE)
 	{
 		stateModel.SetPressedKey('a');
 		sm.Trigger(KEYBOARDTRIGGERSExtended::ANYKEY);
 		stateNow = sm.GetCurrentState();
-
-		// Hack using 'C' to represent the CAPSLOCK key
-		stateModel.SetPressedKey('C');
+		
 		sm.Trigger(KEYBOARDTRIGGERSExtended::CAPSLOCK);
 		stateNow = sm.GetCurrentState();		
 	}
+
+	int keyCount = stateModel.GetKeyCount();
+	if (keyCount != 0)
+		throw keyCount;
 
 	// Should default exit when count is zero...
 	stateNow = sm.GetCurrentState();
 	if (stateNow != KEYBOARDSTATESExtended::NOSTATE)
 		throw "Keyboard state not correct";
+}
+
+void TestSStateMachineExtended()
+{
+	S stateMachine;
+
+	SSTATES stateNow = stateMachine.GetCurrentState();
+
+	stateMachine.Trigger(STRIGGERS::DEFAULTENTRY);
+	stateNow = stateMachine.GetCurrentState();
+	if (stateNow != SSTATES::S1)
+		throw "S state not correct";
+
+	stateMachine.Trigger(STRIGGERS::T);
+	stateNow = stateMachine.GetCurrentState();
+	if (stateNow != SSTATES::S2)
+		throw "S state not correct";
 }

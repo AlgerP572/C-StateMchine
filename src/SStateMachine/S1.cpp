@@ -1,5 +1,5 @@
 /*
- * Final.cpp:
+ * S1.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,37 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "StatesTriggers.h"
-#include "Final.h"
+#include "S1.h"
+#include "S11.h"
+#include <stdio.h>
 
-Final::Final()
+S1::S1()
 {
-	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Final::IdleTriggerGuard);
+	S11* s11 = new S11();
+	
+	AddState(SSTATES::S11, s11);
+
+	AddTriggerGuard(STRIGGERS::T, &S1::TTriggerGuard);
 }
 
-void Final::IdleTriggerGuard(TRIGGERS trigger, Transition<Final, STATES>& transition)
+void S1::TTriggerGuard(STRIGGERS trigger, Transition<S1, SSTATES>& transition)
 {
-	transition.TargetState = STATES::IDLE;
+	printf("g() : ");
+	transition.TargetState = SSTATES::S2;
+	transition.Actions = &S1::TTransition;
+}
+
+void S1::TTransition()
+{	
+	printf("t() : ");
+}
+
+void S1::ExitAction()
+{
+	// order is important here. According to UML the child state
+	// needs to exit first so call the base class first.
+	OrState::ExitAction();
+
+	// Now perform Exit action for this state.
+	printf("b() : ");	
 }

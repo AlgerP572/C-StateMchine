@@ -30,8 +30,8 @@ class Idle : public StateTemplate<Idle,
 	STATES>
 {
 private:
-	STATES IdleTriggerGuard(TRIGGERS trigger);
-	STATES FinalTriggerGuard(TRIGGERS trigger);
+	void IdleTriggerGuard(TRIGGERS trigger, Transition<Idle, STATES>& transition);
+	void FinalTriggerGuard(TRIGGERS trigger, Transition<Idle, STATES>& transition);
 
 public:
 	Idle();

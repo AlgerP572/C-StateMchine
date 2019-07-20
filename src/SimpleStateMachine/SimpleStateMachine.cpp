@@ -29,8 +29,8 @@ SimpleStateMachine::SimpleStateMachine()
 	Idle* idle = new Idle();
 	Final* final = new Final();
 
-	AddState(STATES::IDLE, *idle);
-	AddState(STATES::FINAL, *final);
+	AddState(STATES::IDLE, idle);
+	AddState(STATES::FINAL, final);
 }
 
 void SimpleStateMachine::EntryAction()

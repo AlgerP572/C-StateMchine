@@ -1,5 +1,5 @@
 /*
- * Final.cpp:
+ * S.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,15 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "StatesTriggers.h"
-#include "Final.h"
+#include "s.h"
+#include "S1.h"
+#include "S2.h"
 
-Final::Final()
+S::S()
 {
-	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Final::IdleTriggerGuard);
-}
+	S1* s1 = new S1();
+	S2* s2 = new S2();
 
-void Final::IdleTriggerGuard(TRIGGERS trigger, Transition<Final, STATES>& transition)
-{
-	transition.TargetState = STATES::IDLE;
+	AddState(SSTATES::S1, s1);
+	AddState(SSTATES::S2, s2);
 }

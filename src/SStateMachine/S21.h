@@ -1,5 +1,5 @@
 /*
- * Final.cpp:
+ * S21.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,15 +20,18 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "StatesTriggers.h"
-#include "Final.h"
+#pragma once
 
-Final::Final()
-{
-	AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Final::IdleTriggerGuard);
-}
+#include "../StateMachine.h"
+#include "SStatesTriggers.h"
 
-void Final::IdleTriggerGuard(TRIGGERS trigger, Transition<Final, STATES>& transition)
+class S21 : public StateTemplate<S21,
+	STRIGGERS,
+	(int)STRIGGERS::Count,
+	SSTATES>
 {
-	transition.TargetState = STATES::IDLE;
-}
+
+public:
+	S21();
+	void EntryAction() override;
+};

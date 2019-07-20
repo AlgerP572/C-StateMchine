@@ -23,6 +23,7 @@
 #include "KeyboardStatesTriggersExtended.h"
 #include "KeyboardStateModel.h"
 #include "DefaultExtended.h"
+#include <functional>
 
 
 DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
@@ -32,27 +33,28 @@ DefaultExtended::DefaultExtended(KeyboardStateModel& stateModel) :
 	AddTriggerGuard(KEYBOARDTRIGGERSExtended::ANYKEY, &DefaultExtended::AnyKeyTriggerGuard);
 }
 
-KEYBOARDSTATESExtended DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+void DefaultExtended::CapsLockTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<DefaultExtended, KEYBOARDSTATESExtended>& transition)
 {
-	return KEYBOARDSTATESExtended::CAPSLOCKED;
+	transition.TargetState = KEYBOARDSTATESExtended::CAPSLOCKED;
 }
 
-KEYBOARDSTATESExtended DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger)
+void DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<DefaultExtended, KEYBOARDSTATESExtended>& transition)
 {
 	if (_stateModel.GetKeyCount() > 0)
 	{
-		return KEYBOARDSTATESExtended::DEFAULT;
+		transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
+
+		std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
+		transition.Actions = &DefaultExtended::AnyKeyTransition;
 	}
 	else
 	{
-		return KEYBOARDSTATESExtended::NOSTATE;
+		transition.TargetState = KEYBOARDSTATESExtended::NOSTATE;
 	}
 }
 
-void DefaultExtended::ExitAction()
+void DefaultExtended::AnyKeyTransition()
 {
-	if (_stateModel.GetPressedKey() != 'C')
-	{
-		_stateModel.DecrementKeyCount();
-	}
-};
+	_stateModel.DecrementKeyCount();
+}
+

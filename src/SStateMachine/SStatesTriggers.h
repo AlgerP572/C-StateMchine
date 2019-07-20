@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * SStateTriggers.h:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,20 +20,26 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#pragma once
 
-KeyboardStateMachine::KeyboardStateMachine()
+#include "../StateMachine.h"
+
+enum class SSTATES
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
+	NOSTATE = RESERVED_NO_STATE,
+	NOSTATECHANGE = RESERVED_NO_STATE_CHANGE,
+	S = 0,
+	S1,
+	S11,
+	S2,
+	S21,
+	Count
+};
 
-	AddState(KEYBOARDSTATES::DEFAULT, defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, capsLockedState);
-}
-
-KeyboardStateMachine::~KeyboardStateMachine()
+enum class STRIGGERS
 {
-
-}
+	DEFAULTENTRY = RESERVED_TRIGGER_DEFAULT_ENTRY,
+	DEFAULTEXIT = RESERVED_TRIGGER_DEFAULT_EXIT,
+	T = 0,
+	Count
+};

@@ -1,5 +1,5 @@
 /*
- * KeybaordStateMachine.h:
+ * S2.cpp:
  *	Base classes to support a C++ UML state machine.
  *	Copyright (c) 2019 Alger Pike
  ***********************************************************************
@@ -20,20 +20,19 @@
  *    along with CPlusPLusSateMachine.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
 */
-#include "KeyBoardStateMachine.h"
-#include "Default.h"
-#include "CapsLocked.h"
+#include "S2.h"
+#include "S21.h"
+#include <stdio.h>
 
-KeyboardStateMachine::KeyboardStateMachine()
+S2::S2()
 {
-	Default* defaultState = new Default();
-	CapsLocked* capsLockedState = new CapsLocked();
+	S21* s21 = new S21();
 
-	AddState(KEYBOARDSTATES::DEFAULT, defaultState);
-	AddState(KEYBOARDSTATES::CAPSLOCKED, capsLockedState);
+	AddState(SSTATES::S21, s21);
 }
 
-KeyboardStateMachine::~KeyboardStateMachine()
+void S2::EntryAction()
 {
-
+	printf("c() : ");
+	OrState::ExitAction();
 }

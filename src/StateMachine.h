@@ -55,20 +55,56 @@
 #define RESERVED_TRIGGER_DEFAULT_ENTRY -1
 #define RESERVED_TRIGGER_DEFAULT_EXIT -2
 
+template<typename EnumState, typename EnumTrigger>
 class State
 {
 public:
-	virtual void EntryAction() {};
-	virtual void ExitAction() {};
+	virtual ~State() {};
+	virtual void EntryAction()  = 0;
+	virtual void EntryAction(EnumState& triggerless) = 0;
+	virtual void ExitAction() = 0;
+	EnumState virtual Trigger(EnumTrigger trigger) = 0;
+	virtual void TransitionActions() = 0;
+};
+
+
+template <class T, typename EnumState>
+struct Transition
+{
+	EnumState TargetState;	
+
+	typedef void (T::* TransitionAction)();
+	TransitionAction Actions;
+
+	Transition() :
+		TargetState(EnumState::NOSTATE),
+		Actions(nullptr)
+	{
+	}
+
+	Transition(EnumState targetState) :
+		TargetState(targetState),
+		Actions(nullptr)
+	{
+	}
+
+	void Action(T* stateInstance)
+	{
+		if (Actions != nullptr)
+		{
+			(stateInstance->*Actions)();
+		}
+	}
+
 };
 
 template <class T, typename EnumTrigger, int countTriggers, typename EnumState>
-class StateTemplate : public State
+class StateTemplate : public State<EnumState, EnumTrigger>
 {
-
 protected:	
-	typedef EnumState (T::* Guard)(EnumTrigger);
+	typedef void (T::* Guard)(EnumTrigger, Transition<T, EnumState>&);
 	Guard _triggers[countTriggers];
+	Transition<T, EnumState> _transition;
 
 public:
 	StateTemplate()
@@ -79,35 +115,60 @@ public:
 		}
 	}
 
-	virtual EnumState EntryAction(EnumState currentState)
+	void EntryAction(EnumState& triggerless) override
 	{
 		EntryAction();
-		return EnumState::NOSTATECHANGE;
+		triggerless = EnumState::NOSTATECHANGE;
 	}
 
 	void EntryAction() override
 	{
-		State::EntryAction();
+//		State<EnumState>::EntryAction();
+	}
+
+	void ExitAction() override
+	{
+
 	}
 	
-	EnumState virtual Trigger(EnumTrigger trigger)
+	EnumState Trigger(EnumTrigger trigger) override
 	{
 		switch(trigger)
 		{
 		case EnumTrigger::DEFAULTENTRY:
+		{
+			_transition.Actions = nullptr;
+		}
+		// fall through...
 		case EnumTrigger::DEFAULTEXIT:
-			return EnumState::NOSTATE;
+		{
+			_transition.TargetState = EnumState::NOSTATE;
+			
+		}
+		break;
 		default:
 		{
 			Guard guard = _triggers[(int) trigger];
 
+			_transition.Actions = nullptr;
 			if (guard == nullptr)
-				return EnumState::NOSTATE;
-
-			return ((T*)this->*guard)(trigger);
+			{
+				_transition.TargetState = EnumState::NOSTATECHANGE;
+			}
+			else
+			{
+				((T*)this->*guard)(trigger, _transition);
+			}
 		}
 		break;
 		}
+
+		return _transition.TargetState;
+	}
+
+	void TransitionActions() override	
+	{
+		_transition.Action((T*) this);
 	}
 
 	void AddTriggerGuard(EnumTrigger trigger, Guard guard)
@@ -121,7 +182,7 @@ class OrState : public StateTemplate<T, EnumTrigger, numTriggers, EnumState>
 {
 
 private:
-	State* _childStates[numStates];
+	State<EnumState, EnumTrigger>* _childStates[numStates];
 	EnumState _defaultEntryState = defaultEntryState;
 	EnumState _currentState = EnumState::NOSTATE;
 
@@ -134,7 +195,10 @@ private:
 
 		if (_currentState != EnumState::NOSTATE)
 		{
-			_childStates[(int) _currentState]->ExitAction();
+			State<EnumState, EnumTrigger>* stateInstance = _childStates[(int)_currentState];
+
+			stateInstance->ExitAction();
+			stateInstance->TransitionActions();
 		}
 
 		if (newState == EnumState::NOSTATE)
@@ -143,13 +207,13 @@ private:
 		}
 		else
 		{
-			_currentState = newState;			
-			EnumState nextState = ((StateTemplate<T, EnumTrigger, numTriggers, EnumState>*) _childStates[(int) _currentState])->EntryAction(_currentState);
+			_currentState = newState;
 
-			if (nextState != EnumState::NOSTATECHANGE)
-			{
-				ChangeState(nextState);
-			}
+			EnumState triggerless;
+			State<EnumState, EnumTrigger>* stateInstance = _childStates[(int)_currentState];
+			stateInstance->EntryAction(triggerless);
+
+			ChangeState(triggerless);
 		}
 	}
 
@@ -161,19 +225,32 @@ public:
 			_childStates[i] = nullptr;
 		}
 	}
+
+	~OrState() override
+	{
+		for (int i = 0; i < numStates; i++)
+		{
+			State<EnumState, EnumTrigger>* pState = _childStates[i];
+
+			if (pState == nullptr)
+				continue;
+
+			delete pState;
+		}
+	}
 	
-	void AddState(EnumState enumValue, State& instance)
+	void AddState(EnumState enumValue, State<EnumState, EnumTrigger>* instance)
 	{		
-		_childStates[(int) enumValue] = &instance;
+		_childStates[(int) enumValue] = instance;
 	}
 
 	void EntryAction() override
-	{
+	{		
 		Trigger(EnumTrigger::DEFAULTENTRY);
 	}
 
 	void ExitAction() override
-	{
+	{		
 		Trigger(EnumTrigger::DEFAULTEXIT);
 	}
 
@@ -200,9 +277,13 @@ public:
 		default:
 		{
 			if (_currentState != EnumState::NOSTATE)
-			{
-				EnumState newState = ((StateTemplate<T, EnumTrigger, numTriggers, EnumState>*)_childStates[(int) _currentState])->Trigger(trigger);
-				ChangeState(newState);
+			{	
+				State<EnumState, EnumTrigger>* stateInstance;
+				stateInstance = _childStates[(int)_currentState];
+
+				EnumState targetState = stateInstance->Trigger(trigger);				 
+
+				ChangeState(targetState);
 			}
 		}
 		break;

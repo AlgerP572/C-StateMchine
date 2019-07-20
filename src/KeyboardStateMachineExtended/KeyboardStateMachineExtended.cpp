@@ -30,6 +30,6 @@ KeyboardStateMachineExtended::KeyboardStateMachineExtended(KeyboardStateModel& s
 	DefaultExtended* defaultState = new DefaultExtended(stateModel);
 	CapsLockedExtended* capsLockedState = new CapsLockedExtended(stateModel);
 
-	AddState(KEYBOARDSTATESExtended::DEFAULT, *defaultState);
-	AddState(KEYBOARDSTATESExtended::CAPSLOCKED, *capsLockedState);
+	AddState(KEYBOARDSTATESExtended::DEFAULT, defaultState);
+	AddState(KEYBOARDSTATESExtended::CAPSLOCKED, capsLockedState);
 }

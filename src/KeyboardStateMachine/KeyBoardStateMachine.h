@@ -33,4 +33,5 @@ class KeyboardStateMachine : public OrState<KeyboardStateMachine,
 {
 public:
 	KeyboardStateMachine();
+	~KeyboardStateMachine() override;
 };
