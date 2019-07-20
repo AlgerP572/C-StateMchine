@@ -34,5 +34,5 @@ class S2 : public OrState<S2,
 public:
 	S2();
 
-	void ExitAction() override;
+	void EntryAction() override;
 };

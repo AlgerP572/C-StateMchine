@@ -31,7 +31,7 @@ S2::S2()
 	AddState(SSTATES::S21, s21);
 }
 
-void S2::ExitAction()
+void S2::EntryAction()
 {
 	printf("c() : ");
 	OrState::ExitAction();

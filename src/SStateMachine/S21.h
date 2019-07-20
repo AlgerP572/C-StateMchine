@@ -33,6 +33,5 @@ class S21 : public StateTemplate<S21,
 
 public:
 	S21();
-	void EntryAction() override {};
-	void ExitAction() override;
+	void EntryAction() override;
 };

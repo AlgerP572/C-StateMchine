@@ -27,7 +27,7 @@ S21::S21()
 {
 }
 
-void S21::ExitAction()
+void S21::EntryAction()
 {
 	printf("e() : ");
 }
