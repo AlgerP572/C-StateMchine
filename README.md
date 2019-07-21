@@ -81,5 +81,8 @@ In general the TransitionActions() interface member should not need to be redefi
 1. The entry action for the target state now execute
 1. Transition is complete and state machine waits for next trigger.
 
+The following diagram shows the sequence and is the UML state chart for SStateMachine example provided in this repository:
+
+![Practical UML Statecharts, in C/C++ Fig 2.9, Miro Samek](../Media/StateRoles.png)
 
 
