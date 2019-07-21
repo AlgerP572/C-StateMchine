@@ -83,6 +83,6 @@ In general the TransitionActions() interface member should not need to be redefi
 
 The following diagram shows the sequence and is the UML state chart for SStateMachine example provided in this repository:
 
-![Practical UML Statecharts, in C/C++ Fig 2.9, Miro Samek] (media/StateRoles.png)
+![Practical UML Statecharts, in C/C++ Fig 2.9, Miro Samek](media/StateRoles.png)
 
 
