@@ -6,10 +6,10 @@ state diagrams from: https://en.wikipedia.org/wiki/UML_state_machine
 
 For more information on UML state machine statecharts:
 
-Samek, M. (2009). Practical UML Statecharts in C/C++ (2nd ed.). Burlington, MA, USA: Elsevier Inc.
-Douglass, B. (2004) Real Time UML (3rd ed.). Boston, MA, USA: Pearson Education Inc.
-Rumbaugh, Jacobson, & Booch (2005) The Unified Modeling Language Reference Manual (2nd ed.). Boston, MA, USA: Pearson Education Inc.
-Gomaa, H. (2000) Designing Concurrent, Distributed, and Real-Time Applications with UML. Boston, MA, USA: Pearson Education Inc.
+Samek, M. (2009). *Practical UML Statecharts in C/C++* (2nd ed.). Burlington, MA, USA: Elsevier Inc.
+Douglass, B. (2004) *Real Time UML* (3rd ed.). Boston, MA, USA: Pearson Education Inc.
+Rumbaugh, Jacobson, & Booch (2005) *The Unified Modeling Language Reference Manual* (2nd ed.). Boston, MA, USA: Pearson Education Inc.
+Gomaa, H. (2000) *Designing Concurrent, Distributed, and Real-Time Applications with UML*. Boston, MA, USA: Pearson Education Inc.
 
 ## State class
 
