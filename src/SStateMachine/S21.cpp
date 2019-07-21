@@ -29,5 +29,5 @@ S21::S21()
 
 void S21::EntryAction()
 {
-	printf("e() : ");
+	printf("d() : ");
 }
