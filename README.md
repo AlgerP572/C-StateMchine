@@ -23,14 +23,51 @@ If a state is required to support a triggerless transtion to the next source sta
 
 This overload of EntryAction() provides a mechanism where the new target state can support further transitions without an event to trigger the transition.  This type of transition is know in UML as a triggerless transtion.  To support the triggerless transition the class must override this specific overload of EntryAction(EnumState& triggerless).  The default implmentation of EntryAction(EnumState& triggerless) calls the EntryAction() overload and returns the reserved keyword RESERVED_NO_STATECHANGE which indicates to the state machine that no state change should take place:
 
-    void EntryAction(EnumState& triggerless) override
-	  {
-		    EntryAction();
-		    triggerless = EnumState::NOSTATECHANGE;
-	  }
+    void State::EntryAction(EnumState& triggerless) override
+    {
+        EntryAction();
+        triggerless = EnumState::NOSTATECHANGE;
+    }
     
-To enable a triggerless transtion override
+To enable a triggerless transtion override EntryAction(EnumState& triggerless) as follows:
+
+    void S11::ExitAction(EnumState& triggerless)
+    {
+        printf("a() : ");
+	triggerless = NEXTTARGETSTATE;
+    }
 
 ### ExitAction()
 
 The exit action is executed anytime a trigger occurs that causes a sate transition.  The current state of the state machine or the source state executes the exit action before the state machine transitions to the new target state.
+
+### Trigger(EnumTrigger trigger)
+
+Calling trigger allows the state an oppurtunity to examine the trigger and decide if the trigger should cause the state machine to transition to a new target state.  Each trigger is defined in a trigger enumeration and can be associated with a guard conditon for a transition.  The guard condition will execute and determine what the next target state of the state machine should be. Each state can setup its guard conditions for that triggers that the state supports as follows:
+
+    Idle::Idle()
+    {
+        AddTriggerGuard(TRIGGERS::IDLETRIGGER, &Idle::IdleTriggerGuard);
+        AddTriggerGuard(TRIGGERS::FINALTRIGGER, &Idle::FinalTriggerGuard);
+    }
+    
+If a guard condition is not set up for a specific trigger it will be not be processed and simply be ignored by the state machine. When a guard condition is setup for the sepcific trigger its implemenation should provide what the next target state using the current conditions of the state model.
+
+    void DefaultExtended::AnyKeyTriggerGuard(KEYBOARDTRIGGERSExtended trigger, Transition<DefaultExtended, KEYBOARDSTATESExtended>& transition)
+    {
+        if (_stateModel.GetKeyCount() > 0)
+	{
+	    transition.TargetState = KEYBOARDSTATESExtended::DEFAULT;
+
+            std::function<void()> fn = [this]() { _stateModel.DecrementKeyCount(); };
+	    transition.Actions = &DefaultExtended::AnyKeyTransition;
+	}
+	else
+	{
+	    transition.TargetState = KEYBOARDSTATESExtended::NOSTATE;
+	}
+    }
+    
+As shown above the target state can vary depending upon whether the maximum key count for the state machine has been exceeded.
+
+
