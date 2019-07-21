@@ -92,4 +92,11 @@ The following diagram shows the sequence and is the UML state chart for SStateMa
 
 ![Practical UML Statecharts, in C/C++ Fig 2.9, Miro Samek](media/StateRoles.png)
 
+By using the debugger for this example the following occurs for this specific state machine:
 
+1. The T trigger is sent to the state machine by an external event.
+1. State S1 guard condition returns a target state of S2
+1. Current state of S1 is S11 so S11 ExitAction executes followed by S1 ExitAction
+1. The TranstionActions for this transition execute.
+1. EntryAction for S2 executes followed by S21 EntryAction since S2 is a composite state.
+1. In code follwoing the debugger we have *g() : true (really S2), a(), b(), t(), c(), d()
