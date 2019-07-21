@@ -70,4 +70,16 @@ If a guard condition is not set up for a specific trigger it will be not be proc
     
 As shown above the target state can vary depending upon whether the maximum key count for the state machine has been exceeded.
 
+### TransitionActions()
+
+In general the TransitionActions() interface member should not need to be redefined but it is provided as virtual in case it would be required in some at this point unknown use case.  The TransitionActions() function is called during the sequence of a transition in the state machine which happens in the following sequence.
+
+1. State machine ends a trigger
+1. Guard for this trigger returns next target state
+1. The exit action for the source state executes
+1. The TransitionActions() now execute
+1. The entry action for the target state now execute
+1. Transition is complete and state machine waits for next trigger.
+
+
 
